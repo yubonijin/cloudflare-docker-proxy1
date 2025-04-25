@@ -1,0 +1,35 @@
+name = "cloudflare-docker-proxy1"
+compatibility_date = "2023-12-01"
+
+[dev]
+ip = "0.0.0.0"
+port = 8787
+local_protocol = "http"
+
+[env.dev.vars]
+MODE = "debug"
+TARGET_UPSTREAM = "https://registry-1.docker.io"
+
+[env.production]
+name = "cloudflare-docker-proxy1"
+routes = [
+  { pattern = "docker.aygg2.dpdns.org", custom_domain = true },
+  { pattern = "quay.aygg2.dpdns.org", custom_domain = true },
+  { pattern = "gcr.aygg2.dpdns.org", custom_domain = true },
+  { pattern = "k8s-gcr.aygg2.dpdns.org", custom_domain = true },
+  { pattern = "k8s.aygg2.dpdns.org", custom_domain = true },
+  { pattern = "ghcr.aygg2.dpdns.org", custom_domain = true },
+  { pattern = "cloudsmith.aygg2.dpdns.org", custom_domain = true },
+]
+
+[env.production.vars]
+MODE = "production"
+TARGET_UPSTREAM = ""
+
+[env.staging]
+name = "cloudflare-docker-proxy1-staging"
+route = { pattern = "docker-staging.aygg2.dpdns.org", custom_domain = true }
+
+[env.staging.vars]
+MODE = "staging"
+TARGET_UPSTREAM = ""
